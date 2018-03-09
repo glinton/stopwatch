@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/signal"
 	"time"
@@ -16,11 +15,10 @@ func main() {
 	for {
 		select {
 		case <-q:
-			fmt.Print("\r\033[K")
-			fmt.Println(time.Since(curr))
+			os.Stdout.WriteString("\r\033[K" + time.Since(curr).String() + "\n")
 			return
 		default:
-			fmt.Printf("\r%s", time.Since(curr))
+			os.Stdout.WriteString("\r\033[K" + time.Since(curr).String())
 			time.Sleep(100 * time.Millisecond)
 		}
 	}
